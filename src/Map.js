@@ -6,7 +6,16 @@ import './App.css'
 export class MapContainer extends React.Component {
   render() {
     return (
-      <Map google={this.props.google} zoom={14}>
+      <Map  google={this.props.google}
+      style={{width: '100%', height: '100%', position: 'relative'}}
+
+          initialCenter={{
+            lat: 47.610378,
+            lng: -122.200676
+          }}
+
+          zoom={15}
+          onClick={this.onMapClicked}>
 
         <Marker onClick={this.onMarkerClick}
                 name={'Current location'} />
