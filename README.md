@@ -18,6 +18,7 @@ $ cd ...
 Install dependencies
 
 $ npm install
+$ npm install semantic-ui
 
 Run the application
 
