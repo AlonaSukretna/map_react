@@ -10,6 +10,14 @@ var markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2042},
                {id: 5, name: 'Bellevue Botanical Garden', lat:47.6081, lng: -122.1785}];
 
 export class MapContainer extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedMarker: this.props.selectedMarker
+    }
+  }
+
   state = {
       showingInfoWindow: false,
       activeMarker: {},
@@ -32,6 +40,12 @@ export class MapContainer extends React.Component {
       }
     };
 
+    componentWillReceiveProps(props){
+      this.setState({
+        selectedMarker: props.selectedMarker
+      });
+    }
+
     render() {
       return (
 
@@ -39,10 +53,10 @@ export class MapContainer extends React.Component {
       style={{width: '100%', height: '100%', position: 'relative'}}
 
           initialCenter={{
-            lat: 47.610378,
-            lng: -122.200676
+            lat: 47.6051,
+            lng: -122.1655
           }}
-          zoom={15}
+          zoom={13}
           onClick={this.onMapClicked}>
 
         {markers.map((item, i) =>

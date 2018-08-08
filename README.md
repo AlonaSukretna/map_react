@@ -18,7 +18,10 @@ $ cd ...
 Install dependencies
 
 $ npm install
-$ npm install semantic-ui
+$ npm install semantic-ui-react
+$ npm install semantic-ui-css
+
+
 
 Run the application
 
@@ -37,4 +40,13 @@ in terminal run $ npm install --save google-maps-react
 
 3. Write "skeleton".
 
-4. Build The Map Container Component
+4. Build App and components.
+
+5. Add data from third-party API FourSquare.
+   You need to be registered and have your client ID and secret key.
+
+6. Error handling.
+
+7. Add accessibility.
+
+8. Add Service Worker.

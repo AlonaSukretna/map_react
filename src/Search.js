@@ -17,7 +17,12 @@ export default class Search extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.selectMarker = this.selectMarker.bind(this);
   };
+
+  selectMarker(event) {
+    this.props.onSelectMarker(event.target.id);
+  }
 
   handleChange(event){
     this.setState({
@@ -32,6 +37,7 @@ export default class Search extends React.Component {
     });
     return (
       <div>
+        <br/>
         <div className="ui category search">
           <div className="ui icon input">
             <input className="prompt" type="text" value={this.state.search} onChange={this.handleChange} placeholder="Search places..." />
@@ -44,7 +50,7 @@ export default class Search extends React.Component {
                 <div className="item" key={place.id}>
                   <div className="content">
                     <i className="marker icon"></i>
-                    {place.name}
+                    <button id={place.id} onClick={this.selectMarker}>{place.name}</button>
                   </div>
                 </div>
               )
