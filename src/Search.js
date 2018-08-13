@@ -32,7 +32,6 @@ export default class Search extends React.Component {
 
   render() {
     let filteredPlaces = markers.filter((place) => {
-      console.log(this.state.search);
       return place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
     });
     return (

@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   selectMarker(id) {
-    console.log(id);
+    //console.log(id);
 
     this.setState({
       selectedMarker: id
@@ -38,7 +38,7 @@ class App extends Component {
             <Search onSelectMarker={this.selectMarker} />
           </div>
           <div className="fourteen wide column">
-            <MapContainer selectedMarker={this.state.selectMarker} />
+            <MapContainer selectedMarker={this.state.selectedMarker} />
           </div>
         </div>
 
