@@ -22,7 +22,7 @@ var markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2042, four
                {id: 2, name: 'Robinswood park', lat: 47.587, lng: -122.1391, foursquareid: '4b76dec5f964a520c9652ee3'},
                {id: 3, name: 'Crossroads park', lat: 47.6175, lng: -122.1229, foursquareid: '4a41c6acf964a52097a51fe3'},
                {id: 4, name: 'Lake Hills park', lat: 47.5987, lng: -122.1222, foursquareid: '4bc63f38db8fa593cb069c37'},
-               {id: 5, name: 'Bellevue Botanical Garden', lat: 47.6081, lng: -122.1785, foursquareid: '4ac23711f964a520399820e3'}];
+               {id: 5, name: 'Botanical Garden', lat: 47.6081, lng: -122.1785, foursquareid: '4ac23711f964a520399820e3'}];
 
 export class MapContainer extends React.Component {
 
@@ -57,6 +57,15 @@ export class MapContainer extends React.Component {
 
       var mySelectedMarker = filteredMarkers[0];
 
+      /*this.setState({
+        selectedPlace: {name: props.name},
+        activeMarker: marker,
+        selectedMarker: mySelectedMarker.id,
+        selectedLat: mySelectedMarker.lat,
+        selectedLng: mySelectedMarker.lng,
+        showingInfoWindow: true
+      });*/
+
       this.getFourSquareVenueDetails(mySelectedMarker.foursquareid)
       .then(item => {
         var venue = item.response.venue;
@@ -68,6 +77,7 @@ export class MapContainer extends React.Component {
         console.log(address);
         console.log(url);
 
+        //double bounce issue
         this.setState({
           selectedPlace: {name: props.name},
           activeMarker: marker,
@@ -78,7 +88,21 @@ export class MapContainer extends React.Component {
           fourSquareVenueDetails: address
         });
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error:', error);
+
+        //double bounce issue
+        this.setState({
+          selectedPlace: {name: props.name},
+          activeMarker: marker,
+          selectedMarker: mySelectedMarker.id,
+          selectedLat: mySelectedMarker.lat,
+          selectedLng: mySelectedMarker.lng,
+          showingInfoWindow: true,
+          fourSquareVenueDetails: 'Address not available'
+        });
+
+      });
     };
 
     onMapClicked = (props) => {
@@ -143,7 +167,21 @@ export class MapContainer extends React.Component {
           fourSquareVenueDetails: address
         });
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error =>
+        {
+          console.error('Error:', error);
+
+          //double bounce issue
+          this.setState({
+            selectedMarker: props.selectedMarker,
+            selectedLat: mySelectedMarker.lat,
+            selectedLng: mySelectedMarker.lng,
+            selectedPlace: {name: mySelectedMarker.name},
+            activeMarker: mySelectedMarker2,
+            showingInfoWindow: true,
+            fourSquareVenueDetails: 'Address not available'
+          });
+        });
 
       /*this.setState({
         selectedMarker: props.selectedMarker,
@@ -157,29 +195,31 @@ export class MapContainer extends React.Component {
       */
     }
 
+    //https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api
+
     getFourSquareVenueDetails(venueID){
 
       return fetch('https://api.foursquare.com/v2/venues/' + venueID + '?client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725')// returns a promise object
-        .then( result => result.json()) // still returns a promise object, U need to chain it again
-        /*.then( item => {
-          venue = item.response.venue;
-          address = venue.location.address;
-          url = venue.url;
-          //this.setState({items});
-          console.log('test Fetch API');
-          //console.log(venue);
-          console.log(address);
-          console.log(url);
+      .then(function(response) {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          return response.json();
         })
-        */
-        .catch(error => console.error('Error:', error));
+        .catch(function(error) {
+        //console.log('Looks like there was a problem: \n', error);
+        return Promise.reject({
+    				type: 'Error',
+    				message: error
+    			});
+        });
     }
 
     render() {
       return (
       <Map  google={this.props.google} ref="map"
-      style={{width: '100%', height: '100%', position: 'relative'}}
-
+            style={{width: '100%', height: '100%', position: 'relative'}}
+            className={'map'}
           initialCenter={{
             lat: 47.6051,
             lng: -122.1655
@@ -202,8 +242,8 @@ export class MapContainer extends React.Component {
           position={{lat: this.state.selectedLat, lng: this.state.selectedLng}}
           pixelOffset={{height: -40, width: 0}}
           visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
+            <div className="infowindow">
+              <p><b>{this.state.selectedPlace.name}</b></p>
               <p>{this.state.fourSquareVenueDetails}</p>
             </div>
         </InfoWindow>

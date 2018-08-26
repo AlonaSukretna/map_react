@@ -6,7 +6,7 @@ var markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2042},
                {id: 2, name: 'Robinswood park', lat:47.587, lng: -122.1391},
                {id: 3, name: 'Crossroads park', lat:47.6175, lng: -122.1229},
                {id: 4, name: 'Lake Hills park', lat:47.5987, lng: -122.1222},
-               {id: 5, name: 'Bellevue Botanical Garden', lat:47.6081, lng: -122.1785}];
+               {id: 5, name: 'Botanical Garden', lat:47.6081, lng: -122.1785}];
 
 export default class Search extends React.Component {
 
@@ -36,10 +36,17 @@ export default class Search extends React.Component {
     });
     return (
       <div>
-        <br/>
-        <div className="ui category search">
+
+        <div className="ui category search" role="search" style={{background: 'white'}}>
+          <br/>
           <div className="ui icon input">
-            <input className="prompt" type="text" value={this.state.search} onChange={this.handleChange} placeholder="Search places..." />
+            <input
+              aria-label="Input filter places:"
+              className="prompt"
+              type="text"
+              value={this.state.search}
+              onChange={this.handleChange}
+              placeholder="Search places..." />
             <i className="search icon"></i>
           </div>
           <div className="ui middle aligned divided list">
@@ -49,7 +56,7 @@ export default class Search extends React.Component {
                 <div className="item" key={place.id}>
                   <div className="content">
                     <i className="marker icon"></i>
-                    <button id={place.id} onClick={this.selectMarker}>{place.name}</button>
+                    <button className="bt" id={place.id} onClick={this.selectMarker}>{place.name}</button>
                   </div>
                 </div>
               )
