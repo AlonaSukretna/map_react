@@ -3,14 +3,6 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import * as Data from './Data';
 
-/*
-var markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2042},
-               {id: 2, name: 'Robinswood park', lat:47.587, lng: -122.1391},
-               {id: 3, name: 'Crossroads park', lat:47.6175, lng: -122.1229},
-               {id: 4, name: 'Lake Hills park', lat:47.5987, lng: -122.1222},
-               {id: 5, name: 'Botanical Garden', lat:47.6081, lng: -122.1785}];
-*/
-
 export default class Search extends React.Component {
 
   constructor(props) {

@@ -3,3 +3,5 @@ export const markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2
                         {id: 3, name: 'Crossroads park', lat: 47.6175, lng: -122.1229, foursquareid: '4a41c6acf964a52097a51fe3'},
                         {id: 4, name: 'Lake Hills park', lat: 47.5987, lng: -122.1222, foursquareid: '4bc63f38db8fa593cb069c37'},
                         {id: 5, name: 'Botanical Garden', lat: 47.6081, lng: -122.1785, foursquareid: '4ac23711f964a520399820e3'}];
+
+export const addressNotAvailableMessage = 'Address not available';

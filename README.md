@@ -78,3 +78,5 @@ If you need to test your offline-first service worker locally, build the applica
 //https://api.foursquare.com/v2/venues/4ac23711f964a520399820e3?client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725
 
 //https://stackoverflow.com/questions/40104350/react-js-is-domcontentloaded-equal-with-componentdidmount
+
+//https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api
