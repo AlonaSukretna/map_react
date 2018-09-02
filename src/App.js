@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 import MapContainer from "./Map";
 import Search from "./Search";
 import 'semantic-ui-css/semantic.min.css';
 
-//https://stackoverflow.com/questions/40104350/react-js-is-domcontentloaded-equal-with-componentdidmount
-
 document.addEventListener('DOMContentLoaded', function(event) {
-  console.log('DOMContentLoaded event');
   //Maps error handling is implemented in Google Maps API
   let scriptTag = document.getElementsByTagName('SCRIPT').item(1);
   scriptTag.onerror = function(e) {
@@ -30,8 +26,6 @@ class App extends Component {
   }
 
   selectMarker(id) {
-    //console.log(id);
-
     this.setState({
       selectedMarker: id
     });

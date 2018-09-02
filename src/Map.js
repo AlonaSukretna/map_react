@@ -1,28 +1,15 @@
-import React from 'react'
+import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-//import Marker from "./Marker";
-import './App.css'
+import './App.css';
+import * as Data from './Data';
 
-import { withGoogleMap, GoogleMap} from 'google-maps-react';
-const google = window.google;
-
-//https://medium.com/@eighteen0seven/writing-a-google-maps-react-component-fae411588a91
-//https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple
-
-//https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-//https://developer.foursquare.com/docs/api/venues/details
-
-//https://api.foursquare.com/v2/venues/search?ll=47.587,-122.1391&client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725
-//https://api.foursquare.com/v2/venues/4ac23711f964a520399820e3?client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725
-
-const CLIENT_ID = '4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL';
-const CLIENT_SECRET = 'CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5';
-
+/*
 var markers = [{id: 1, name: 'Downtown park', lat: 47.6127, lng: -122.2042, foursquareid: '488db78ff964a52055511fe3'},
                {id: 2, name: 'Robinswood park', lat: 47.587, lng: -122.1391, foursquareid: '4b76dec5f964a520c9652ee3'},
                {id: 3, name: 'Crossroads park', lat: 47.6175, lng: -122.1229, foursquareid: '4a41c6acf964a52097a51fe3'},
                {id: 4, name: 'Lake Hills park', lat: 47.5987, lng: -122.1222, foursquareid: '4bc63f38db8fa593cb069c37'},
                {id: 5, name: 'Botanical Garden', lat: 47.6081, lng: -122.1785, foursquareid: '4ac23711f964a520399820e3'}];
+*/
 
 export class MapContainer extends React.Component {
 
@@ -51,8 +38,8 @@ export class MapContainer extends React.Component {
       //console.log('fnsksfbnksnfksn');
       console.log(marker.id);
 
-      let filteredMarkers = markers.filter((st) => {
-        return st.id == marker.id;
+      let filteredMarkers = Data.markers.filter((st) => {
+        return st.id === marker.id;
       });
 
       var mySelectedMarker = filteredMarkers[0];
@@ -120,23 +107,21 @@ export class MapContainer extends React.Component {
       console.log('---------------');
       console.log(this.state.markerObjects);
 
-      let filteredMarkers = markers.filter((st) => {
-        return st.id == props.selectedMarker;
+      let filteredMarkers = Data.markers.filter((st) => {
+        return st.id === props.selectedMarker;
       });
 
       var mySelectedMarker = filteredMarkers[0];
       //console.log(filteredMarkers);
 
       let filteredMarkers2 = this.state.markerObjects.filter((st2) => {
-        return st2.name == mySelectedMarker.name;
+        return st2.name === mySelectedMarker.name;
       });
 
       var mySelectedMarker2 = filteredMarkers2[0];
 
       const {google} = this.props;
       const maps = google.maps;
-
-      const mapRef = this.refs.map;
 
       //let lat = 47.587;
       //let lng = -122.1391;
@@ -227,7 +212,7 @@ export class MapContainer extends React.Component {
           zoom={13}
           onClick={this.onMapClicked}>
 
-        {markers.map((item, i) =>
+        {Data.markers.map((item, i) =>
           <Marker ref={this.onMarkerMounted}
                   onClick={this.onMarkerClick}
                   key={item.id}
@@ -235,7 +220,7 @@ export class MapContainer extends React.Component {
                   title={item.name}
                   name={item.name}
                   position={{lat: item.lat, lng: item.lng}}
-                  animation={(this.state.selectedMarker == item.id) ? this.props.google.maps.Animation.DROP : null} />
+                  animation={(this.state.selectedMarker === item.id) ? this.props.google.maps.Animation.DROP : null} />
         )}
 
         <InfoWindow

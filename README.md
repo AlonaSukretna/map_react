@@ -65,3 +65,16 @@ It's recommended that you do not enable an offline-first service worker in a
 development environment.
 If you need to test your offline-first service worker locally, build the application
 (using npm run build) and run a simple http server from your build directory.
+
+10. References.
+
+//https://medium.com/@eighteen0seven/writing-a-google-maps-react-component-fae411588a91
+//https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple
+
+//https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+//https://developer.foursquare.com/docs/api/venues/details
+
+//https://api.foursquare.com/v2/venues/search?ll=47.587,-122.1391&client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725
+//https://api.foursquare.com/v2/venues/4ac23711f964a520399820e3?client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725
+
+//https://stackoverflow.com/questions/40104350/react-js-is-domcontentloaded-equal-with-componentdidmount
