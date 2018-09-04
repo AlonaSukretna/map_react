@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   //Maps error handling is implemented in Google Maps API
   let scriptTag = document.getElementsByTagName('SCRIPT').item(1);
   scriptTag.onerror = function(e) {
-    console.log('Oops! Something went wrong! This page did not load Google Maps correctly.');
+  window.alert('Oops! Something went wrong! This page did not load Google Maps correctly.');
   }
 });
 
@@ -18,6 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    //selectedMarker is the id of marker of interest on the map
     this.state = {
       selectedMarker: ''
     }

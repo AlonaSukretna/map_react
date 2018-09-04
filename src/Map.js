@@ -7,6 +7,12 @@ export class MapContainer extends React.Component {
 
     constructor(props) {
       super(props);
+
+      //selectedMarker is the id of marker of interest on the maps
+      //showingInfoWindow is a boolean flag to decide whether to display infoWindow or not
+      //activeMarker is the object describing marker of interest (native google-maps-react object)
+      //selectedPlace is the object describing selected marker (its name, latitude, longitude and address)
+      //markerObjects is the collection of marker objects (native google-maps-react object collection)
       this.state = {
         selectedMarker: '',
         showingInfoWindow: false,
@@ -15,6 +21,8 @@ export class MapContainer extends React.Component {
         markerObjects: []
       }
 
+      //Capture markerObject collection of native marker objects for the map
+      //Later we can use native marker objects when the user chooses to click on a marker from the search bar
       this.onMarkerMounted = element => {
         this.setState(prevState => ({
           markerObjects: [...prevState.markerObjects, element.marker]
@@ -25,6 +33,7 @@ export class MapContainer extends React.Component {
       this.getMarkerObject = this.getMarkerObject.bind(this);
     }
 
+    //Get marker by its id from the predefined data
     getMarker(id){
       let filteredMarkers = Data.markers.filter((marker) => {
         return marker.id === Number(id);
@@ -33,6 +42,9 @@ export class MapContainer extends React.Component {
       return (filteredMarkers === undefined || filteredMarkers.length === 0 ? undefined : filteredMarkers[0]);
     }
 
+    //Get the native marker object based on its name
+    //This is important when the user clicks on a marker from the search bar and we need to identify the right marker clicked
+    //The assumption is that marker names are unique in the predefined data
     getMarkerObject(name){
       let filteredMarkers = this.state.markerObjects.filter((marker) => {
         return marker.name === name;
@@ -41,6 +53,7 @@ export class MapContainer extends React.Component {
       return (filteredMarkers === undefined || filteredMarkers.length === 0 ? undefined : filteredMarkers[0]);
     }
 
+    //The user clicks on a marker on the map
     onMarkerClick = (props, marker, e) => {
       var currentMarker = this.getMarker(marker.id);
       var address = '';
@@ -63,6 +76,12 @@ export class MapContainer extends React.Component {
       });
     };
 
+    //Global function for Google Maps error handling
+    gm_authFailure(){
+        window.alert("Google Maps error!")
+    }
+
+    //Hide infoWindow in case the user simply clicks on the map
     onMapClicked = (props) => {
       if (this.state.showingInfoWindow) {
         this.setState({
@@ -73,6 +92,12 @@ export class MapContainer extends React.Component {
       }
     };
 
+    //Display appropriate error message when there's a problem with Google Maps
+    componentDidMount(){
+        window.gm_authFailure = this.gm_authFailure;
+    }
+
+    //The user clicks on a marker from the search bar
     componentWillReceiveProps(props){
       var currentMarker = this.getMarker(props.selectedMarker);
       var currentMarkerObject = this.getMarkerObject(currentMarker.name);
@@ -96,6 +121,7 @@ export class MapContainer extends React.Component {
       });
     }
 
+    //Get venue details for the selected marker from FourSquare
     getFourSquareVenueDetails(venueID){
       return fetch('https://api.foursquare.com/v2/venues/' + venueID + '?client_id=4LAFMCX0K4YV1VVJHPOIVDJKB0QHIZ2AFC1UHMBLN0H3FXIL&client_secret=CYDR4WDTUW4WQ0XG0ZDYTNH0GH4A5YAI0BRUBVVQRAYA5HZ5&v=20180725')
       .then(function(response) {

@@ -10,10 +10,10 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: white;
   height: 150px;
   width: 100%;
-  color: white;
+  color: black;
 }
 
 
@@ -47,16 +47,4 @@ font-size: 1.5vw;
   font-size: 1.5vw;
 }
 
-}
-
-.error-msg {
-  margin-top: 130px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  background-color: orange;
-  color: #fff;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px #555;
 }

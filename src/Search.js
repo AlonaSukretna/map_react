@@ -7,6 +7,8 @@ export default class Search extends React.Component {
 
   constructor(props) {
     super(props);
+
+    //search is the variable which contains the currently used search term in the search bar
     this.state = {
       search: ''
     };
@@ -15,10 +17,12 @@ export default class Search extends React.Component {
     this.selectMarker = this.selectMarker.bind(this);
   };
 
+  //The user clicks a marker from the search bar
   selectMarker(event) {
     this.props.onSelectMarker(event.target.id);
   }
 
+  //The user changed the search term in the search bar 
   handleChange(event){
     this.setState({
       search: event.target.value
