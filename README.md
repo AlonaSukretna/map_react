@@ -29,6 +29,10 @@ $ npm start
 
 This will open a new browser tab with the application running.
 
+In case you run into Refs Must Have Owner warning please refer to the following guidance
+https://reactjs.org/warnings/refs-must-have-owner.html
+to make sure you don't have multiple copies of React which may cause this warning/behavior
+
 # How I did it
 0. Have Google API key ready.
 
@@ -80,3 +84,8 @@ If you need to test your offline-first service worker locally, build the applica
 //https://stackoverflow.com/questions/40104350/react-js-is-domcontentloaded-equal-with-componentdidmount
 
 //https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api
+
+Refs Must Have Owner Warning:
+//https://reactjs.org/warnings/refs-must-have-owner.html
+Multiple copies of React: Bower does a good job of deduplicating dependencies, but npm does not. If you aren’t doing anything (fancy) with refs, there is a good chance that the problem is not with your refs, but rather an issue with having multiple copies of React loaded into your project. Sometimes, when you pull in a third-party module via npm, you will get a duplicate copy of the dependency library, and this can create problems.
+If you are using npm… npm ls or npm ls react might help illuminate.

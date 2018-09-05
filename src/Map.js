@@ -21,17 +21,18 @@ export class MapContainer extends React.Component {
         markerObjects: []
       }
 
-      //Capture markerObject collection of native marker objects for the map
-      //Later we can use native marker objects when the user chooses to click on a marker from the search bar
-      this.onMarkerMounted = element => {
-        this.setState(prevState => ({
-          markerObjects: [...prevState.markerObjects, element.marker]
-        }))
-      };
-
       this.getMarker = this.getMarker.bind(this);
       this.getMarkerObject = this.getMarkerObject.bind(this);
+      this.onMarkerMounted = this.onMarkerMounted.bind(this);
     }
+
+    //Capture markerObject collection of native marker objects for the map
+    //Later we can use native marker objects when the user chooses to click on a marker from the search bar
+    onMarkerMounted = element => {
+      this.setState(prevState => ({
+        markerObjects: [...prevState.markerObjects, element.marker]
+      }))
+    };
 
     //Get marker by its id from the predefined data
     getMarker(id){
@@ -85,9 +86,9 @@ export class MapContainer extends React.Component {
     onMapClicked = (props) => {
       if (this.state.showingInfoWindow) {
         this.setState({
-          showingInfoWindow: false,
           activeMarker: null,
           selectedMarker: 0,
+          showingInfoWindow: false
         })
       }
     };
@@ -113,9 +114,9 @@ export class MapContainer extends React.Component {
       })
       .finally(() => {
         this.setState({
-          selectedMarker: currentMarker.id,
           selectedPlace: {name: currentMarker.name, lat: currentMarker.lat, lng: currentMarker.lng, address: address},
           activeMarker: currentMarkerObject,
+          selectedMarker: currentMarker.id,
           showingInfoWindow: true
         });
       });
